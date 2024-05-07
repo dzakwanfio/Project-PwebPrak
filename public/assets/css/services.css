@@ -1,0 +1,91 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/images/bglogin.jpg'); 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Header styles */
+.header {
+    background-color: #004aad;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+/* Service section styles */
+.services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.service {
+    position: relative; /* Tambahkan posisi relatif */
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+    overflow: hidden; /* Tambahkan overflow untuk efek garis bawah */
+}
+
+.service::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 2px;
+    background-color: #004aad;
+}
+
+.service:hover {
+    transform: translateY(-5px);
+    background-color: #bfbfbf; /* Ubah warna latar belakang saat dihover */
+}
+
+.service h2 {
+    color: #333;
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.service img {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.service p {
+    color: #666;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #004aad;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+

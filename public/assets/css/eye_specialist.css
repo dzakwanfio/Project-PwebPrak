@@ -1,0 +1,40 @@
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .doctor-card {
+        background-color: #004aad;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex; 
+        align-items: center;
+    
+    }
+
+    .doctor-card img {
+        width: 20%; /* Sesuaikan lebar gambar sesuai keinginan */
+        border-radius: 10px;
+        margin-right: 10px; /* Atur jarak antara gambar dan teks */
+        height: auto;
+      }
+    
+      .doctor-info {
+        font-size: 0.9em; /* Ukuran huruf untuk spesialis */
+    }
+    .doctor-info h2 {
+        font-weight: bold; /* Huruf tebal untuk nama dokter */
+        margin-bottom: 5px; /* Jarak antara nama dan spesialis */
+    }
+
+    .eye{
+        color: white;
+    }
