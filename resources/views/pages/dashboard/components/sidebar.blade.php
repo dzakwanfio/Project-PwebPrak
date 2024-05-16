@@ -28,28 +28,28 @@
 @elseif (Auth::user()->role == 'patient')
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
-                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
+                        <a href="{{route('dashboard')}}" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row">
                     <td class="menu-btn menu-icon-doctor">
-                        <a href="doctors.php" class="non-style-link-menu"><div><p class="menu-text">All Doctors</p></a></div>
+                        <a href="{{route('doctors.index')}}" class="non-style-link-menu"><div><p class="menu-text">All Doctors</p></a></div>
                     </td>
                 </tr>
                 
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">Scheduled Sessions</p></div></a>
+                        <a href="{{route('schedules.index')}}" class="non-style-link-menu"><div><p class="menu-text">Scheduled Sessions</p></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Bookings</p></a></div>
+                        <a href="{{route('appointments.index')}}" class="non-style-link-menu"><div><p class="menu-text">My Bookings</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
+                        <a href="{{route('settings.index')}}" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
                     </td>
                 </tr>
 @elseif (Auth::user()->role == 'doctor')

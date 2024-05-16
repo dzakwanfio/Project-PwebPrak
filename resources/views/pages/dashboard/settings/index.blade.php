@@ -37,7 +37,7 @@
                         <tr >
                             
                         <td width="13%" >
-                    <a href="settings.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
+                    <a href="{{route('settings.index')}}" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
                         <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Settings</p>
@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 25%;">
-                                    <a href="?action=edit&id=&error=0" class="non-style-link">
+                                    <a href="{{route('settings.edit', Auth::user()->id)}}" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex">
                                         <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('{{asset('assets/images/icons/doctors-hover.svg')}}');"></div>
                                         <div>
@@ -92,7 +92,7 @@
                             </tr>
                             <tr>
                             <td style="width: 25%;">
-                                    <a href="?action=view&id=" class="non-style-link">
+                                    <a href="?action=view&id={{Auth::user()->id}}" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
                                         <div class="btn-icon-back dashboard-icons-setting " style="background-image: url('{{asset('assets/images/icons/view-iceblue.svg')}}');"></div>
                                         <div>
@@ -116,7 +116,7 @@
                             </tr>
                             <tr>
                             <td style="width: 25%;">
-                                    <a href="?action=drop&id=" class="non-style-link">
+                                    <a href="?action=delete&id={{Auth::user()->id}}" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
                                         <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('{{asset('assets/images/icons/patients-hover.svg')}}');"></div>
                                         <div>
@@ -142,5 +142,15 @@
             </table>
         </div>
     </div>
+@if ($_GET)
+@if ($_GET['action'] == 'view')
+    @include('pages.dashboard.settings.view', ['user' => Auth::user()->id])
+@elseif ($_GET['action'] == 'session')
+    @include('pages.dashboard.settings.session', ['user' => $user])
+@elseif ($_GET['action'] == 'delete')
+    @include('pages.dashboard.settings.delete', ['user' => Auth::user()])
+@endif
+    
+@endif
 </body>
 </html>

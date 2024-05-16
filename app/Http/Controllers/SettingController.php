@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
 {
@@ -46,14 +47,41 @@ class SettingController extends Controller
     public function edit(string $id)
     {
         //
+        return view('pages.dashboard.settings.edit', ['user' => User::find($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $user_id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required|string',
+            'date_of_birth' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::findOrFail($user_id);
+        $user->update([
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'date_of_birth' => $request->date_of_birth,
+        ]);
+
+        // Assuming the relationship between User and Doctor is correctly set up
+
+
+        return redirect()->route('settings.index')->with('success', 'User updated successfully');
     }
 
     /**

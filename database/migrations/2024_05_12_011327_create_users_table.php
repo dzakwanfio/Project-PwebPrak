@@ -13,13 +13,32 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fname')->nullable(false);
+            $table->string('lname')->nullable(false); // Ini seharusnya 'lname', bukan 'fname' lagi
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('address')->nullable();
+            $table->enum('role', ['doctor', 'patient', 'admin'])->nullable(false);
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('doctors', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->integer('speciality_id')->nullable(false);
+            $table->foreign('speciality_id')->references('id')->on('specialities');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
+
+        Schema::create('patients', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
@@ -42,8 +61,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('patients');
+        Schema::dropIfExists('admins');
+        Schema::dropIfExists('doctors');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('patients');
     }
 };

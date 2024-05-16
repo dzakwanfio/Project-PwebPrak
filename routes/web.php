@@ -10,6 +10,10 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SettingController;
+use App\Models\Schedule;
+use App\Models\Appointment;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 Route::controller(PagesController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -29,7 +33,28 @@ Route::controller(ServicesController::class)->prefix('services')->group(function
     Route::get('/eye_specialist', 'eye_specialist')->name('eye_specialist');
 });
 Route::get('/dashboard', function () {
-    return view('pages.dashboard.index', ['users' => User::all()]);
+    $user = Auth::user();
+    if ($user->role == 'doctor') {
+        $doctor = $user->doctor; // Asumsi relasi satu ke satu antara User dan Doctor
+        $schedules = $doctor->schedules; // Mengambil semua jadwal dokter
+        $totalAppointmentsToday = 0;
+
+        foreach ($schedules as $schedule) {
+            $totalAppointmentsToday += $schedule->appointments->where('date', Carbon::today()->toDateString())->count();
+        }
+        return view('pages.dashboard.index', [
+            'users' => User::all(),
+            'appointments' => Appointment::all(),
+            'schedules' => Schedule::all(),
+            'totalAppointmentsToday' => $totalAppointmentsToday
+        ]);
+    } else {
+        return view('pages.dashboard.index', [
+            'users' => User::all(),
+            'appointments' => Appointment::all(),
+            'schedules' => Schedule::all(),
+        ]);
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
@@ -38,6 +63,7 @@ Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () 
     Route::resource('schedules', ScheduleController::class);
     Route::resource('patients', PatientController::class);
     Route::resource('settings', SettingController::class);
+    Route::post('dashboard/schedule/{schedule}/book', [AppointmentController::class, 'add_booking'])->name('appointments.book');
 });
 
 Route::middleware('auth')->group(function () {

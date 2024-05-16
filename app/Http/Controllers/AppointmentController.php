@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Appointment;
+use App\Models\Schedule;
 
 class AppointmentController extends Controller
 {
@@ -12,7 +15,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.appointments.index');
+        return view('pages.dashboard.appointments.index', ['users' => User::all(), 'appointments' => Appointment::all(), 'schedules' => Schedule::all()]);
     }
 
     /**
@@ -20,7 +23,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dashboard.appointments.create');
     }
 
     /**
@@ -60,6 +63,27 @@ class AppointmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Cari appointment berdasarkan ID
+        $appointment = Appointment::findOrFail($id);
+
+        // Hapus appointment
+        $appointment->delete();
+
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return redirect()->route('appointments.index')->with('success', 'Appointment has been deleted successfully.');
+    }
+
+    public function add_booking(Request $request)
+    {
+        $validatedData = $request->validate([
+            'schedule_id' => 'required | exists:schedules,id',
+            'patient_id' => 'required | exists:patients,user_id',
+            'number' => 'required',
+            'date' => 'required',
+        ]);
+
+        Appointment::create($validatedData);
+
+        return redirect()->route('appointments.index');
     }
 }

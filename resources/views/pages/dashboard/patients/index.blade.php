@@ -58,10 +58,8 @@
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="{{asset('assets/images/calendar.svg')}}" width="100%"></button>
                     </td>
-
-
                 </tr>
                 <tr>
                     <td colspan="4" style="padding-top:10px;">
@@ -117,7 +115,7 @@
                                         <td >
                                         <div style="display:flex;justify-content: center;">
                                         
-                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        <a href="?action=view&id={{$user->id}}" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
                                        
                                         </div>
                                         </td>
@@ -148,6 +146,12 @@
         </div>
     </div>
 </div>
+@if ($_GET)
+@if ($_GET['action'] == 'view')
+    @include('pages.dashboard.patients.view', ['user' => $users->where('id', $_GET['id'])->first()]);
+@endif
+    
+@endif
 
 </body>
 </html>
