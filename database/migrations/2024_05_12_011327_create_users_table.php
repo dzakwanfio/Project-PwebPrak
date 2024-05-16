@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('date_of_birth')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('address')->nullable();
-            $table->enum('role', ['doctor', 'patient', 'admin'])->nullable(false);
+            $table->enum('role', ['doctor', 'patient', 'admin'])->nullable(false)->default('patient');
             $table->rememberToken();
             $table->timestamps();
         });

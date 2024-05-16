@@ -18,9 +18,5 @@ class DoctorSeeder extends Seeder
             'speciality_id' => 1,
             'user_id' => User::where('role', 'doctor')->first()->id,
         ]);
-        // Doctor::create([
-        //     'speciality_id' => 1,
-        //     'user_id' => User::where('role', 'doctor')->first()->id,
-        // ]);
     }
 }

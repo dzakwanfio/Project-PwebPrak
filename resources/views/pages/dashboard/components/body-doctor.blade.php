@@ -65,7 +65,7 @@
                                                     <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex; ">
                                                         <div>
                                                                 <div class="h1-dashboard" >
-                                                                    {{$totalAppointmentsToday}}
+                                                                    {{-- {{$totalAppointmentsToday}} --}}
                                                                 </div><br>
                                                                 <div class="h3-dashboard" >
                                                                     NewBooking &nbsp;&nbsp;
