@@ -89,6 +89,8 @@ class SettingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('settings.index')->with('success', 'User deleted successfully');
     }
 }
