@@ -192,36 +192,39 @@
                             </thead>
                             <tbody>
                                 
-                                @foreach ($appointments as $appointment)
-                                    <tr>
-                                        <td style="font-weight:600;"> &nbsp;
-                                            {{$appointment->patient->user->fname . ' ' . $appointment->patient->user->lname}}
-                                        </td>
-                                        <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);"> 
-                                            {{$appointment->number}}
-                                        </td>
-                                        @if (Auth::user()->role == 'admin')
-                                        <td>
-                                            {{$appointment->schedules->doctor->user->fname . ' ' . $appointment->schedules->doctor->user->lname}}
-                                        </td>
-                                        @endif
-                                        <td style="text-align:center;">
-                                            {{$appointment->schedules->title}}
-                                        </td>
-                                        <td style="text-align:center;">
-                                            {{$appointment->schedules->date . ' ' . $appointment->schedules->start_time}}
-                                        </td>
-                                        <td style="text-align:center;">
-                                            {{$appointment->date}}
-                                        </td>
-                                        <td>
-                                            <div style="display:flex;justify-content: center;">
-                                                <a href="?action=delete&id={{$appointment->id}}" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Cancel</font></button></a>
-                                                &nbsp;&nbsp;&nbsp;
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+@foreach ($appointments as $appointment)
+    <tr>
+        <td style="font-weight:600;"> &nbsp;
+            {{$appointment->patient->user->fname . ' ' . $appointment->patient->user->lname}}
+        </td>
+        <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);"> 
+            {{$appointment->number}}
+        </td>
+        @if (Auth::user()->role == 'admin')
+        <td>
+            {{$appointment->schedules->doctor->user->fname . ' ' . $appointment->schedules->doctor->user->lname}}
+        </td>
+        @endif
+        <td style="text-align:center;">
+            {{$appointment->schedules->title}}
+        </td>
+        <td style="text-align:center;">
+            {{$appointment->schedules->date . ' ' . $appointment->schedules->start_time}}
+        </td>
+        <td style="text-align:center;">
+            {{$appointment->date}}
+        </td>
+        <td>
+            <div style="display:flex;justify-content: center;">
+                <a href="?action=delete&id={{$appointment->id}}" class="non-style-link">
+                    <button type="button" class="btn-primary-soft btn button-icon btn-delete" style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;">
+                        <span class="tn-in-text">Cancel</span>
+                    </button>
+                </a>
+            </div>
+        </td>
+    </tr>
+@endforeach
                             </tbody>
                             @endif
                             @endif
@@ -235,7 +238,7 @@
     </div>
     @if ($_GET)
 @if ($_GET['action'] == 'delete')
-    @include('pages.dashboard.appointments.delete', ['appointment' => $appointment])
+    @include('pages.dashboard.appointments.delete', ['appointment' => $appointment->where('id', $_GET['id'])->first()])
 @endif
     
 @endif

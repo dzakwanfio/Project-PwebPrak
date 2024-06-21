@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -17,7 +18,12 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.schedules.index', ['users' => User::all(), 'schedules' => Schedule::all()]);
+        if (Auth::user()->role == 'doctor') {
+            $schedules = Schedule::where('doctor_id', Auth::user()->id)->get();
+            return view('pages.dashboard.schedules.index', ['users' => User::all(), 'schedules' => $schedules]);
+        } else {
+            return view('pages.dashboard.schedules.index', ['users' => User::all(), 'schedules' => Schedule::all()]);
+        }
     }
 
     /**

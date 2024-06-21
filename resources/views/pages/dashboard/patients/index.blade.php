@@ -40,8 +40,8 @@
 
                             <input type="search" name="search" class="input-text header-searchbar" placeholder="Search Patient name or Email" list="patient">&nbsp;&nbsp;
                                 <datalist id="patient">
-                                    @foreach ($users->where('role', 'patient') as $user)
-                                        <option value='{{$user->email}}'>{{$user->name}}<br/>
+                                    @foreach ($patients as $patient)
+                                        <option value='{{$patient->user->email}}'>{{$patient->user->name}}<br/>
                                     @endforeach
                                 </datalist>
                             <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
@@ -94,28 +94,28 @@
                                 </tr>
                         </thead>
                         <tbody>
-                            @if($users->where('role', 'patient')->count() > 0)
-                                @foreach ($users->where('role', 'patient') as $user)
+                            @if($patients->count() > 0)
+                                @foreach ($patients as $patient)
                                     <tr>
                                         <td> &nbsp;
-                                        {{$user->fname}} {{$user->lname}}
+                                        {{$patient->user->fname}} {{$patient->user->lname}}
                                         </td>
                                         <td>
-                                            {{$user->nic}}
+                                            {{$patient->user->nic}}
                                         </td>
                                         <td>
-                                            {{$user->phone}}
+                                            {{$patient->user->phone}}
                                         </td>
                                         <td>
-                                            {{$user->email}}
+                                            {{$patient->user->email}}
                                         </td>
                                         <td>
-                                            {{$user->date_of_birth}}
+                                            {{$patient->user->date_of_birth}}
                                         </td>
                                         <td >
                                         <div style="display:flex;justify-content: center;">
                                         
-                                        <a href="?action=view&id={{$user->id}}" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        <a href="?action=view&id={{$patient->user->id}}" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
                                        
                                         </div>
                                         </td>
@@ -140,7 +140,7 @@
                         </table>
                         </div>
                         </center>
-                   </td> 
+                </td> 
                 </tr>
             </table>
         </div>

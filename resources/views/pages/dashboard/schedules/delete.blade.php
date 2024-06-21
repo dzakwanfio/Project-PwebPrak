@@ -4,7 +4,7 @@
             <h2>Are you sure?</h2>
             <a class="close" href="{{route('schedules.index')}}">&times;</a>
             <div class="content">
-                You want to delete this record<br>{{$schedule->doctor->user->fname . ' '. $schedule->doctor->user->lname}}<br>                            
+                You want to delete this record<br>{{$schedule->title}}<br>                            
             </div>
             <div style="display: flex;justify-content: center;">
                 <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST" style="display: inline;">

@@ -205,7 +205,7 @@
         @if ($_GET['action'] == 'view')
             @include('pages.dashboard.schedules.view', ['schedule' => $schedule, 'appointments' => \App\Models\Appointment::where('schedule_id', $schedule->id)->get()])
         @elseif ($_GET['action'] == 'delete')
-            @include('pages.dashboard.schedules.delete', ['schedule' => $schedule])
+            @include('pages.dashboard.schedules.delete', ['schedule' => $schedule->where('id', $_GET['id'])->first()])
         @endif
     @endif
 </body>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date')->nullable(false);
             $table->time('start_time')->nullable(false);
             $table->integer('nop')->nullable(false);
-            $table->foreign('doctor_id')->references('user_id')->on('doctors');
+            $table->foreign('doctor_id')->references('user_id')->on('doctors')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('patient_id')->nullable(false);
             $table->integer('number')->nullable(false);
             $table->date('date')->nullable(false);
-            $table->foreign('schedule_id')->references('id')->on('schedules');
-            $table->foreign('patient_id')->references('user_id')->on('patients');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->foreign('patient_id')->references('user_id')->on('patients')->onDelete('cascade');
             $table->timestamps();
         });
     }

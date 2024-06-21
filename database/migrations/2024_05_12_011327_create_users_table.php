@@ -29,14 +29,14 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->integer('speciality_id')->nullable(false);
-            $table->foreign('speciality_id')->references('id')->on('specialities');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('speciality_id')->references('id')->on('specialities')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
 
         Schema::create('patients', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable(false);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
 

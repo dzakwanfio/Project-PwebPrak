@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -13,7 +15,16 @@ class PatientController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.patients.index', ['users' => User::all()]);
+        if (Auth::user()->role == 'doctor') {
+            $patients = Patient::whereHas('appointments', function ($query) {
+                $query->whereHas('schedules', function ($query) {
+                    $query->where('doctor_id', Auth::user()->id);
+                });
+            })->get();
+            return view('pages.dashboard.patients.index', ['patients' => $patients]);
+        } else {
+            return view('pages.dashboard.patients.index', ['users' => User::all()]);
+        }
     }
 
     /**

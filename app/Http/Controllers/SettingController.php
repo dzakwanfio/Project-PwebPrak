@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
@@ -89,8 +91,29 @@ class SettingController extends Controller
      */
     public function destroy(string $id)
     {
+        // $user = User::findOrFail($id);
+        // if ($user->role == 'doctor') {
+        //     $doctor = $user->doctor;
+        //     $doctor->delete();
+        //     $user->delete();
+        // } elseif ($user->role == 'patient') {
+        //     $patient = $user->patient;
+        //     $patient->delete();
+        //     $user->delete();
+        // } elseif ($user->role == 'admin') {
+        //     $admin = $user->admin;
+        //     $admin->delete();
+        //     $user->delete();
+        // }
+
+        // return redirect()->route('login')->with('success', 'User deleted successfully');
+    }
+    public function delete(string $id)
+    {
         $user = User::findOrFail($id);
+
         $user->delete();
-        return redirect()->route('settings.index')->with('success', 'User deleted successfully');
+
+        return redirect()->route('login')->with('success', 'User deleted successfully');
     }
 }

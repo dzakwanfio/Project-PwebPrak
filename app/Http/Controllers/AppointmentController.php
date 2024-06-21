@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -15,7 +16,14 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard.appointments.index', ['users' => User::all(), 'appointments' => Appointment::all(), 'schedules' => Schedule::all()]);
+        if (Auth::user()->role == 'doctor') {
+            $appointments = Appointment::whereHas('schedules', function ($query) {
+                $query->where('doctor_id', Auth::user()->id);
+            })->get();
+            return view('pages.dashboard.appointments.index', ['users' => User::all(), 'appointments' => $appointments, 'schedules' => Schedule::all(), 'doctor' => Auth::user()->doctor]);
+        } else {
+            return view('pages.dashboard.appointments.index', ['users' => User::all(), 'appointments' => Appointment::all(), 'schedules' => Schedule::all()]);
+        }
     }
 
     /**

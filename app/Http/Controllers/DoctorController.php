@@ -138,4 +138,14 @@ class DoctorController extends Controller
 
         return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully');
     }
+
+
+    public function delete(string $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('login')->with('success', 'User deleted successfully');
+    }
 }

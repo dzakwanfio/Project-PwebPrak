@@ -59,12 +59,15 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
     Route::resource('appointments', AppointmentController::class);
+    Route::post('doctors/{id}', [DoctorController::class, 'delete'])->name('doctors.delete');
     Route::resource('doctors', DoctorController::class);
     Route::resource('schedules', ScheduleController::class);
     Route::resource('patients', PatientController::class);
+    Route::delete('settings/{id}', [SettingController::class, 'delete'])->name('settings.delete');
     Route::resource('settings', SettingController::class);
-    Route::post('dashboard/schedule/{schedule}/book', [AppointmentController::class, 'add_booking'])->name('appointments.book');
+    Route::post('schedule/{schedule}/book', [AppointmentController::class, 'add_booking'])->name('appointments.book');
 });
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

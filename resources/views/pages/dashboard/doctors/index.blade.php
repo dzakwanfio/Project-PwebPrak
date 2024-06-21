@@ -146,6 +146,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            
                             @endforeach
                             @endif
                         </tbody>
@@ -163,7 +164,7 @@
 @if ($_GET['action'] == 'view')
 @include('pages.dashboard.doctors.view', ['user' => $users->where('id', $_GET['id'])->first()]);
 @elseif ($_GET['action'] == 'session')
-    @include('pages.dashboard.doctors.session', ['user' => $user])
+    @include('pages.dashboard.doctors.session', ['user' => $users->where('id', $_GET['id'])->first()])
 @elseif ($_GET['action'] == 'edit')
     @include('pages.dashboard.doctors.edit', ['user' => $user])
 @elseif ($_GET['action'] == 'delete')
