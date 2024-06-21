@@ -86,28 +86,6 @@ class SettingController extends Controller
         return redirect()->route('settings.index')->with('success', 'User updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        // $user = User::findOrFail($id);
-        // if ($user->role == 'doctor') {
-        //     $doctor = $user->doctor;
-        //     $doctor->delete();
-        //     $user->delete();
-        // } elseif ($user->role == 'patient') {
-        //     $patient = $user->patient;
-        //     $patient->delete();
-        //     $user->delete();
-        // } elseif ($user->role == 'admin') {
-        //     $admin = $user->admin;
-        //     $admin->delete();
-        //     $user->delete();
-        // }
-
-        // return redirect()->route('login')->with('success', 'User deleted successfully');
-    }
     public function delete(string $id)
     {
         $user = User::findOrFail($id);

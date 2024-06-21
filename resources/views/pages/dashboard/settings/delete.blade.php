@@ -5,6 +5,15 @@
             <a class="close" href="{{ route('settings.index') }}">&times;</a>
             <div class="content">
                 You want to delete Your Account<br>{{ Auth::user()->name }}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             </div>
             <div style="display: flex; justify-content: center;">
                 <form action="{{ route('settings.delete', ['id' => Auth::user()->id]) }}" method="POST">
