@@ -23,7 +23,10 @@ class PatientController extends Controller
             })->get();
             return view('pages.dashboard.patients.index', ['patients' => $patients]);
         } else {
-            return view('pages.dashboard.patients.index', ['users' => User::all()]);
+            return view('pages.dashboard.patients.index', [
+                'users' => User::all(), 
+                'patients' => Patient::all()
+            ]);
         }
     }
 
